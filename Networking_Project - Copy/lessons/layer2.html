@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGFN - Layer 2</title>
+    
+   
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        
+        .lesson-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            padding: 80px 20px; 
+        }
+
+        .lesson-btn {
+            width: 95%; 
+            max-width: 800px; 
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            padding: 50px; 
+            border-radius: 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 35px; 
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: 0.4s;
+            border: 3px solid var(--header-bg);
+            cursor: pointer;
+        }
+
+        .lesson-btn:hover {
+            background-color: var(--header-bg);
+            color: white;
+            transform: scale(1.02); 
+        }
+
+        
+        .back-home-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--text-color);
+            text-decoration: none;
+            opacity: 0.6;
+            font-weight: bold;
+            transition: 0.4s;
+        }
+        .back-home-link:hover {
+            opacity: 1;
+            color: #1bb1e7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <span class="menu-btn" onclick="openNav()">&#9776;</span>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    
+    <a href="../index.html" class="logo-link">
+        <img src="../images/logo.PNG.png" alt="Logo">
+        <h2>PGFN</h2>
+    </a>
+</div>
+
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <button class="dropdown-btn">Layer 2 ▾</button>
+    <div class="dropdown-container">
+        <a href="vlan.html">VLAN Configuration</a>
+        <a href="stp.html">STP Protocol</a>
+    </div>
+    <button class="dropdown-btn">Layer 3 ▾</button>
+    <div class="dropdown-container">
+        <a href="ospf.html">OSPF Routing</a>
+    </div>
+</div>
+
+<div class="lesson-list">
+    
+    <div class="lesson-btn" onclick="window.location.href='vlan.html'">
+        VLAN Configuration
+    </div>
+    <div class="lesson-btn" onclick="window.location.href='stp.html'">
+        STP Protocol
+    </div>
+    
+    <a href="../index.html" class="back-home-link">← Back to Home Page</a>
+</div>
+
+
+<script src="../js/script.js"></script>
+
+<div id="chat-container" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000;">
+    <button id="chat-btn" onclick="toggleChat()" style="background: #0056b3; color: white; border: none; padding: 15px 20px; border-radius: 50px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        Your little helper
+    </button>
+    
+    <div id="chat-box" style="display: none; width: 320px; height: 420px; background: #ffffff; border: 2px solid #0056b3; border-radius: 15px; flex-direction: column; margin-top: 10px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
+        <div style="background: #0056b3; color: white; padding: 12px; text-align: center; font-weight: bold;">PGFN AI Assistant</div>
+        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; display: flex; flex-direction: column; gap: 10px; color: #333; background: #fff;">
+            <div style="background: #e1f5fe; color: #01579b; padding: 10px; border-radius: 10px; margin: 0; align-self: flex-start;">I'm here for you, ask me about networks</div>
+        </div>
+        <div style="padding: 10px; border-top: 1px solid #ddd; display: flex; background: #f9f9f9;">
+            <input type="text" id="user-input" placeholder="Type and press Enter..." style="flex: 1; padding: 8px; border-radius: 5px; border: 1px solid #ccc; outline: none; color: #000;">
+            <button onclick="window.sendMessage()" style="margin-left: 8px; background: #0056b3; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Send</button>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
