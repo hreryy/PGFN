@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGFN - OSPF Routing</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="../js/script.js"></script>
+
+    <style>
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1bb1e7;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <span class="menu-btn" onclick="openNav()">&#9776;</span>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <a href="../index.html" class="logo-link">
+        <img src="../images/logo.PNG.png" alt="Logo">
+        <h2 style="margin: 5px 0 0 0; font-size: 1.5rem;">PGFN</h2>
+    </a>
+</div>
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <button class="dropdown-btn">Layer 2 ▾</button>
+    <div class="dropdown-container">
+        <a href="vlan.html">VLAN Configuration</a>
+        <a href="stp.html">STP Protocol</a>
+    </div>
+    <button class="dropdown-btn">Layer 3 ▾</button>
+    <div class="dropdown-container">
+        <a href="ospf.html">OSPF Routing</a>
+    </div>
+</div>
+
+<div class="content-container">
+    <a href="layer3.html" class="back-btn">← Back to Layer 3 Lessons</a>
+    
+    <div class="explanation-section" style="line-height: 1.8; text-align: left; direction: ltr;">
+        <h1 style="margin-top: 0; color: #1bb1e7;">OSPF Routing Protocol</h1>
+        <p><strong>Open Shortest Path First (OSPF)</strong> is a robust, link-state routing protocol operating at Layer 3. It is widely used in large enterprise networks to dynamically find the fastest and most efficient path for data packets to reach their destination.</p>
+
+        <h3 style="color: #1bb1e7; margin-top: 25px;">The Problem it Solves</h3>
+        <p>Static routing becomes impossible to manage as networks grow. Older dynamic protocols (like RIP) use "Hop Count" to choose paths, which can mistakenly route traffic over very slow links just because they are shorter. OSPF solves this by using the <strong>Dijkstra Algorithm</strong> to calculate paths based on link <strong>Cost (Bandwidth)</strong>, ensuring traffic always takes the fastest route.</p>
+
+        <h3 style="color: #1bb1e7; margin-top: 25px;">How Does OSPF Work?</h3>
+        <p>OSPF routers exchange "Link-State Advertisements" (LSAs) to build a complete topological map of the entire network. To keep the network efficient and reduce CPU load, OSPF divides the network into <strong>Areas</strong>. All areas must connect to a central backbone called <strong>Area 0</strong>.</p>
+
+        <h3 style="color: #1bb1e7; margin-top: 25px;">Step-by-Step CLI Configuration</h3>
+        <p>To enable OSPF, you need to assign a Process ID (e.g., 1). Then, you advertise the directly connected networks using a <strong>Wildcard Mask</strong> (the inverse of a subnet mask) and assign them to a specific area (usually Area 0 for basic setups).</p>
+
+        <div class="code-block" style="text-align: left; direction: ltr;">
+            Router# configure terminal
+            Router(config)# router ospf 1
+            Router(config-router)# network 192.168.10.0 0.0.0.255 area 0
+            Router(config-router)# network 10.0.0.0 0.0.0.3 area 0
+            Router(config-router)# end
+
+            Router# show ip ospf neighbor
+        </div>
+
+        <h4 style="color: #1bb1e7; margin-top: 30px; margin-bottom: 10px;">Expected Output:</h4>
+        <div class="cli-mockup">
+            <img src="../images/ospf-config.png" alt="Cisco CLI - OSPF Configuration Simulation">
+        </div>
+    </div>
+</div>
+
+<div id="chat-container" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000;">
+    <button id="chat-btn" onclick="toggleChat()" style="background: #0056b3; color: white; border: none; padding: 15px 20px; border-radius: 50px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        Your little helper
+    </button>
+    
+    <div id="chat-box" style="display: none; width: 320px; height: 420px; background: #ffffff; border: 2px solid #0056b3; border-radius: 15px; flex-direction: column; margin-top: 10px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
+        <div style="background: #0056b3; color: white; padding: 12px; text-align: center; font-weight: bold;">PGFN AI Assistant</div>
+        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; display: flex; flex-direction: column; gap: 10px; color: #333; background: #fff;">
+            <div style="background: #e1f5fe; color: #01579b; padding: 10px; border-radius: 10px; margin: 0; align-self: flex-start;">I'm here for you, ask me about networks</div>
+        </div>
+        <div style="padding: 10px; border-top: 1px solid #ddd; display: flex; background: #f9f9f9;">
+            <input type="text" id="user-input" placeholder="Type and press Enter..." style="flex: 1; padding: 8px; border-radius: 5px; border: 1px solid #ccc; outline: none; color: #000;">
+            <button onclick="window.sendMessage()" style="margin-left: 8px; background: #0056b3; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Send</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

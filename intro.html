@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="images/logo.PNG.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to PGFN</title>
+    
+    <!-- منع الوميض الأبيض بتطبيق الثيم مبكراً -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+    <style>
+        :root { 
+            --bg-color: #f4f4f9; 
+            --header-bg: #004080; 
+            --text-color: #333; 
+            --btn-bg: white;
+            --btn-border: #004080;
+            --btn-text: #333;
+            --btn-hover-bg: #004080;
+            --btn-hover-text: white;
+        }
+        
+        [data-theme="dark"] { 
+            --bg-color: #0a0f14; 
+            --header-bg: #1bb1e7; 
+            --text-color: #e0e0e0; 
+            --btn-bg: #1a1f26; 
+            --btn-border: #05162a; 
+            --btn-text: #e0e0e0; 
+            --btn-hover-bg: #05162a; 
+            --btn-hover-text: white; 
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+            overflow: hidden;
+        }
+
+        /* الهيدر البسيط لصفحة الدخول */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .brand img {
+            height: 60px;
+            width: auto;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 28px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover { transform: scale(1.1); }
+
+        /* منطقة الهيرو المركزية */
+        .main-hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .main-hero img {
+            height: 180px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        .main-hero h1 {
+            font-size: 3.5rem;
+            margin: 0 0 20px 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .pgfn-subtitle {
+            font-size: 2rem;
+            display: block;
+            margin-top: 10px;
+            color: #1bb1e7; /* لون سماوي للتمييز */
+            font-weight: bold;
+        }
+
+        .main-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            line-height: 1.6;
+            margin-bottom: 45px;
+            opacity: 0.9;
+        }
+
+        /* الزر الكبير (مطابق لصفحة الانديكس) */
+        .start-btn {
+            display: inline-block;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            width: 90%;
+            max-width: 450px;
+            padding: 25px 0;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 3px solid var(--btn-border);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .start-btn:hover {
+            background-color: var(--btn-hover-bg);
+            color: var(--btn-hover-text);
+            transform: scale(1.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+            opacity: 0.6;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .main-hero h1 { font-size: 2.2rem; }
+            .pgfn-subtitle { font-size: 1.4rem; }
+            .main-hero p { font-size: 1.1rem; }
+            .top-nav { padding: 20px; }
+            .start-btn { font-size: 1.4rem; padding: 20px 0; }
+            .main-hero img { height: 130px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="brand">
+            <img src="images/logo.PNG.png" alt="PGFN Logo">
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </nav>
+
+    <main class="main-hero">
+        <!-- شعار المنصة الكبير -->
+        <img src="images/logo.PNG.png" alt="PGFN Hero Logo">
+        <h1>Practical Guide For Network<br><span class="pgfn-subtitle">- PGFN -</span></h1>
+        
+        <p>Your ultimate platform for learning Computer Networks.<br>Explore Cisco configurations, clear explanations, and interact with our AI assistant.</p>
+        
+        <!-- الدخول للصفحة الرئيسية (الموجودة في نفس المجلد) -->
+        <a href="index.html" class="start-btn">Enter Platform</a>
+    </main>
+
+    <footer>
+        <p>© 2026 PGFN Platform, Created by Moumen Alhariri</p>
+    </footer>
+
+    <script>
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeBtn = document.getElementById('themeBtn');
+            if (themeBtn) themeBtn.innerHTML = (savedTheme === 'dark') ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            let currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            const themeBtn = document.getElementById('themeBtn');
+            if (themeBtn) themeBtn.innerHTML = (newTheme === 'dark') ? '☀️' : '🌙';
+        }
+
+        document.addEventListener('DOMContentLoaded', applyTheme);
+    </script>
+
+</body>
+</html>
