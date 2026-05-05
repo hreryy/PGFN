@@ -154,4 +154,10 @@ window.sendMessage = async function() {
         if (el) el.innerText = "❌ Connection failed. Check your network.";
     }
     container.scrollTop = container.scrollHeight;
+    
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof window.applyTheme === 'function') {
+        window.applyTheme();
+    }
+});
 };

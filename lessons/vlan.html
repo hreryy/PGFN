@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PGFN - VLAN Configuration</title>
-    
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
     <link rel="stylesheet" href="../css/style.css">
-    
-    <script src="../js/script.js"></script>
-
     <style>
         .back-btn {
             display: inline-block;
@@ -28,7 +30,7 @@
 
 <div class="header">
     <span class="menu-btn" onclick="openNav()">&#9776;</span>
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️</button>
     <a href="../index.html" class="logo-link">
         <img src="../images/logo.PNG.png" alt="Logo">
         <h2 style="margin: 5px 0 0 0; font-size: 1.5rem;">PGFN</h2>
@@ -53,26 +55,24 @@
     
     <div class="explanation-section" style="line-height: 1.8; text-align: left; direction: ltr;">
         <h1 style="margin-top: 0; color: #1bb1e7;">VLAN Configuration</h1>
-        <p>A <strong>VLAN</strong> is a technology used to divide a single physical switch into multiple independent virtual switches. This division is configured logically (via software) rather than physically.</p>
+        <p>A <strong>VLAN</strong> is a technology used to divide a single physical switch into multiple independent virtual switches. This division is configured logically via software rather than physically.</p>
         
         <h3 style="color: #1bb1e7; margin-top: 25px;">The Problem it Solves</h3>
-        <p>By default, all ports on a switch belong to a single network, known as a <strong>Broadcast Domain</strong>. This means that if one device sends a broadcast message, it reaches every other device connected to the switch. This leads to network congestion and weakens security, as all departments can access the same network space.</p>
+        <p>By default, all ports on a switch belong to a single network, known as a <strong>Broadcast Domain</strong>. This leads to network congestion and weakens security, as all departments can access the same network space.</p>
         
         <h3 style="color: #1bb1e7; margin-top: 25px;">How Does a VLAN Work?</h3>
-        <p>This technology isolates different departments from each other. For example, we can assign ports 1 to 10 to the Human Resources department (VLAN 10), and ports 11 to 20 to the IT department (VLAN 20). By doing this, devices in VLAN 10 cannot communicate with devices in VLAN 20—even though they are connected to the exact same physical switch—unless a Router or a Layer 3 Switch is used for <strong>Inter-VLAN Routing</strong>.</p>
+        <p>This technology isolates different departments from each other. For example, ports 1-10 can be assigned to VLAN 10 (HR) and ports 11-20 to VLAN 20 (IT). Devices in VLAN 10 cannot communicate with VLAN 20 without a Router or Layer 3 Switch.</p>
         
         <h3 style="color: #1bb1e7; margin-top: 25px;">Key Benefits in Enterprise Networks</h3>
         <ul style="margin-left: 20px;">
-            <li style="margin-bottom: 10px;"><strong>Enhanced Security:</strong> Isolates sensitive departments from the rest of the network, preventing unauthorized users from accessing restricted data.</li>
-            <li style="margin-bottom: 10px;"><strong>Improved Performance:</strong> Reduces the size of the broadcast domain, which minimizes random network traffic and saves bandwidth.</li>
-            <li style="margin-bottom: 10px;"><strong>Flexibility & Cost Reduction:</strong> Instead of purchasing a separate physical switch for every department, you can use a single switch and logically divide it to meet everyone's needs.</li>
+            <li style="margin-bottom: 10px;"><strong>Enhanced Security:</strong> Isolates sensitive departments.</li>
+            <li style="margin-bottom: 10px;"><strong>Improved Performance:</strong> Reduces broadcast domain size.</li>
+            <li style="margin-bottom: 10px;"><strong>Cost Reduction:</strong> Logically divides a single physical switch.</li>
         </ul>
     </div>
 
     <div class="explanation-section" style="line-height: 1.8; text-align: left; direction: ltr;">
         <h3 style="color: #1bb1e7; margin-bottom: 15px;">Step-by-Step CLI Configuration</h3>
-        <p>A complete VLAN configuration in the real world requires three main steps: creating the VLAN, assigning an interface to it, and finally verifying the setup.</p>
-
         <div class="code-block" style="text-align: left; direction: ltr;">
             Switch# configure terminal
             Switch(config)# vlan 10
@@ -88,8 +88,8 @@
         </div>
         <h4 style="color: #1bb1e7; margin-top: 30px; margin-bottom: 10px;">Expected Output:</h4>
         <div class="cli-mockup">
-        <img src="../images/vlan-config.png" alt="Cisco CLI - VLAN Configuration Simulation">
-
+            <img src="../images/vlan-config.png" alt="Cisco CLI Simulation">
+        </div>
     </div>
 </div>
 
@@ -98,17 +98,20 @@
         Your little helper
     </button>
     
-    <div id="chat-box" style="display: none; width: 320px; height: 420px; background: #ffffff; border: 2px solid #0056b3; border-radius: 15px; flex-direction: column; margin-top: 10px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
+    <div id="chat-box" style="display: none; width: 320px; height: 420px; border: 2px solid #0056b3; border-radius: 15px; flex-direction: column; margin-top: 10px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
         <div style="background: #0056b3; color: white; padding: 12px; text-align: center; font-weight: bold;">PGFN AI Assistant</div>
-        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; display: flex; flex-direction: column; gap: 10px; color: #333; background: #fff;">
-            <div style="background: #e1f5fe; color: #01579b; padding: 10px; border-radius: 10px; margin: 0; align-self: flex-start;">I'm here for you, ask me about networks</div>
+        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 14px; display: flex; flex-direction: column; gap: 10px;">
         </div>
-        <div style="padding: 10px; border-top: 1px solid #ddd; display: flex; background: #f9f9f9;">
-            <input type="text" id="user-input" placeholder="Type and press Enter..." style="flex: 1; padding: 8px; border-radius: 5px; border: 1px solid #ccc; outline: none; color: #000;">
+        <div style="padding: 10px; border-top: 1px solid #ddd; display: flex;">
+            <input type="text" id="user-input" placeholder="Type and press Enter..." style="flex: 1; padding: 8px; border-radius: 5px; border: 1px solid #ccc; outline: none;">
             <button onclick="window.sendMessage()" style="margin-left: 8px; background: #0056b3; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Send</button>
         </div>
     </div>
 </div>
 
+<script src="../js/script.js"></script>
+<script>
+    window.applyTheme();
+</script>
 </body>
 </html>
